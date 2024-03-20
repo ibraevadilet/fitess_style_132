@@ -12,6 +12,30 @@ class EcoCont {
   });
 }
 
+List<EcoCont> listPositive = [
+  EcoCont(
+    title: '',
+    description: '',
+    time: 0,
+    calories: 0,
+  ),
+];
+List<EcoCont> listNeutral = [
+  EcoCont(
+    title: '',
+    description: '',
+    time: 0,
+    calories: 0,
+  ),
+];
+List<EcoCont> listBad = [
+  EcoCont(
+    title: '',
+    description: '',
+    time: 0,
+    calories: 0,
+  ),
+];
 List<EcoCont> listEco = [
   EcoCont(
     title: 'Green Commute Challenge:',

@@ -33,7 +33,7 @@ class EmotionPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listEco,
+                        listDet: listPositive,
                         color: const Color(0xff69EA57),
                         title: 'Positive Mood'),
                   ),
@@ -72,7 +72,7 @@ class EmotionPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listEco,
+                        listDet: listNeutral,
                         color: const Color(0xffEACB57),
                         title: 'Neutral Mood'),
                   ),
@@ -111,7 +111,7 @@ class EmotionPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listEco,
+                        listDet: listBad,
                         color: const Color(0xffEA5757),
                         title: 'Bad Mood'),
                   ),

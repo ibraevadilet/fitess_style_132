@@ -1,6 +1,5 @@
 import 'package:fitess_style_132/main.dart';
 import 'package:fitess_style_132/workouts_pages/eco_content.dart';
-import 'package:fitess_style_132/workouts_pages/eco_detaile.dart';
 import 'package:fitess_style_132/workouts_pages/eco_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

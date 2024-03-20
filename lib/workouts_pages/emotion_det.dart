@@ -5,8 +5,15 @@ import 'package:fitess_style_132/workouts_pages/eco_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EcoPage extends StatelessWidget {
-  const EcoPage({super.key});
+class EmotionDet extends StatelessWidget {
+  const EmotionDet(
+      {super.key,
+      required this.listDet,
+      required this.color,
+      required this.title});
+  final String title;
+  final List<EcoCont> listDet;
+  final Color color;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +24,7 @@ class EcoPage extends StatelessWidget {
         ),
         backgroundColor: Colors.grey.shade400.withOpacity(0.1),
         centerTitle: false,
-        title: const FittedBox(child: Text('Eco-friendly Fitness Challenges')),
+        title: FittedBox(child: Text(title)),
         titleTextStyle: TextStyle(
           fontSize: 20.h,
           fontWeight: FontWeight.w500,
@@ -28,10 +35,11 @@ class EcoPage extends StatelessWidget {
         child: ListView.separated(
           padding: EdgeInsets.all(16.r),
           shrinkWrap: true,
-          itemCount: listEco.length,
+          itemCount: listDet.length,
           separatorBuilder: (context, index) => const SizedBox(height: 12),
           itemBuilder: (context, index) => EcoWidget(
-            model: listEco[index],
+            model: listDet[index],
+            color: color,
           ),
         ),
       ),

@@ -1,4 +1,6 @@
 import 'package:fitess_style_132/main.dart';
+import 'package:fitess_style_132/workouts_pages/eco_content.dart';
+import 'package:fitess_style_132/workouts_pages/emotion_det.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,7 +28,17 @@ class EmotionPage extends StatelessWidget {
           children: [
             SizedBox(height: 16.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmotionDet(
+                        listDet: listEco,
+                        color: const Color(0xff69EA57),
+                        title: 'Positive Mood'),
+                  ),
+                );
+              },
               child: Container(
                 padding: EdgeInsets.all(20.h),
                 width: MediaQuery.of(context).size.width,
@@ -55,7 +67,17 @@ class EmotionPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmotionDet(
+                        listDet: listEco,
+                        color: const Color(0xffEACB57),
+                        title: 'Neutral Mood'),
+                  ),
+                );
+              },
               child: Container(
                 padding: EdgeInsets.all(20.h),
                 width: MediaQuery.of(context).size.width,
@@ -84,7 +106,17 @@ class EmotionPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmotionDet(
+                        listDet: listEco,
+                        color: const Color(0xffEA5757),
+                        title: 'Bad Mood'),
+                  ),
+                );
+              },
               child: Container(
                 padding: EdgeInsets.all(20.h),
                 width: MediaQuery.of(context).size.width,

@@ -20,10 +20,99 @@ class EmotionPage extends StatelessWidget {
           fontFamily: family,
         ),
       ),
-      body: Column(
-        children: [
-          Container(),
-        ],
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.r),
+        child: Column(
+          children: [
+            SizedBox(height: 16.h),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(20.h),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: const Color(0xff69EA57),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/positiv.png',
+                      width: 90.w,
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Positive Mood',
+                      style: TextStyle(
+                        fontSize: 20.h,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff387D06),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(20.h),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: const Color(0xffEACB57),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/neutral.png',
+                      width: 90.w,
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Neutral Mood',
+                      style: TextStyle(
+                        fontSize: 20.h,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff7D6406),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(20.h),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: const Color(0xffEA5757),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/bad.png',
+                      width: 90.w,
+                    ),
+                    SizedBox(height: 10.h),
+                    Text(
+                      'Bad Mood',
+                      style: TextStyle(
+                        fontSize: 20.h,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xff7D6406),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

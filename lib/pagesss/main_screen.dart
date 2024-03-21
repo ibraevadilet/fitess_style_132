@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:fitess_style_132/main.dart';
@@ -140,9 +139,10 @@ class _MainScreenState extends State<MainScreen> {
                             final pickedFile = await ImagePicker()
                                 .pickImage(source: ImageSource.gallery);
                             if (pickedFile != null) {
-                              final image = File(pickedFile.path);
-                              final bytes = image.readAsBytesSync();
-                              final photo = String.fromCharCodes(bytes);
+                              final bytes1 = await pickedFile.readAsBytes();
+                              // final image = File(pickedFile.path);
+                              // final bytes = image.readAsBytesSync();
+                              final photo = String.fromCharCodes(bytes1);
                               await prefs.setString('image', photo);
 
                               savedImage = prefs.getString('image');

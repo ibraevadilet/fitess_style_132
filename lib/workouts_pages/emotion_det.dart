@@ -39,6 +39,7 @@ class EmotionDet extends StatelessWidget {
           itemBuilder: (context, index) => EcoWidget(
             model: listDet[index],
             color: color,
+            title: title,
           ),
         ),
       ),

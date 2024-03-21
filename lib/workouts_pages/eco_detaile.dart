@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EcoDetaile extends StatelessWidget {
-  const EcoDetaile({super.key, required this.model});
+  const EcoDetaile({super.key, required this.model, this.title});
   final EcoCont model;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,8 @@ class EcoDetaile extends StatelessWidget {
         ),
         backgroundColor: Colors.grey.shade400.withOpacity(0.1),
         centerTitle: false,
-        title: const FittedBox(child: Text('Eco-friendly Fitness Challenges')),
+        title:
+            FittedBox(child: Text(title ?? 'Eco-friendly Fitness Challenges')),
         titleTextStyle: TextStyle(
           fontSize: 20.h,
           fontWeight: FontWeight.w500,

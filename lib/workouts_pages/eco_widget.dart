@@ -8,9 +8,11 @@ class EcoWidget extends StatelessWidget {
     super.key,
     required this.model,
     this.color,
+    this.title,
   });
   final EcoCont model;
   final Color? color;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class EcoWidget extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => EcoDetaile(
               model: model,
+              title:title,
             ),
           ),
         );

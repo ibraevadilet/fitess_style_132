@@ -1,5 +1,5 @@
+import 'package:fitess_style_132/hive_service/type_fitness.dart';
 import 'package:fitess_style_132/main.dart';
-import 'package:fitess_style_132/workouts_pages/eco_content.dart';
 import 'package:fitess_style_132/workouts_pages/emotion_det.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,13 +29,30 @@ class EmotionPage extends StatelessWidget {
             SizedBox(height: 16.h),
             InkWell(
               onTap: () {
+                final onlyEmotions = fitHive.values
+                    .where(
+                        (e) => e.type != FitnessType.eco && e.dateSaved != null)
+                    .toList();
+                bool isResult = false;
+                int inHours = 0;
+                if (onlyEmotions.isNotEmpty) {
+                  final diff =
+                      onlyEmotions.last.dateSaved!.difference(DateTime.now());
+                  isResult = diff.inHours.abs() <= 24;
+                  inHours = 24 - diff.inHours.abs();
+                }
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listPositive,
-                        color: const Color(0xff69EA57),
-                        title: 'Positive Mood'),
+                      hour: isResult ? inHours : null,
+                      listDet: fitHive.values
+                          .where((e) => e.type == FitnessType.pos)
+                          .toList(),
+                      color: const Color(0xff69EA57),
+                      title: 'Positive Mood',
+                    ),
                   ),
                 );
               },
@@ -68,13 +85,30 @@ class EmotionPage extends StatelessWidget {
             SizedBox(height: 10.h),
             InkWell(
               onTap: () {
+                final onlyEmotions = fitHive.values
+                    .where(
+                        (e) => e.type != FitnessType.eco && e.dateSaved != null)
+                    .toList();
+                bool isResult = false;
+                int inHours = 0;
+                if (onlyEmotions.isNotEmpty) {
+                  final diff =
+                      onlyEmotions.last.dateSaved!.difference(DateTime.now());
+                  isResult = diff.inHours.abs() <= 24;
+                  inHours = 24 - diff.inHours.abs();
+                }
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listNeutral,
-                        color: const Color(0xffEACB57),
-                        title: 'Neutral Mood'),
+                      hour: isResult ? inHours : null,
+                      listDet: fitHive.values
+                          .where((e) => e.type == FitnessType.neut)
+                          .toList(),
+                      color: const Color(0xffEACB57),
+                      title: 'Neutral Mood',
+                    ),
                   ),
                 );
               },
@@ -107,13 +141,30 @@ class EmotionPage extends StatelessWidget {
             SizedBox(height: 10.h),
             InkWell(
               onTap: () {
+                final onlyEmotions = fitHive.values
+                    .where(
+                        (e) => e.type != FitnessType.eco && e.dateSaved != null)
+                    .toList();
+                bool isResult = false;
+                int inHours = 0;
+                if (onlyEmotions.isNotEmpty) {
+                  final diff =
+                      onlyEmotions.last.dateSaved!.difference(DateTime.now());
+                  isResult = diff.inHours.abs() <= 24;
+                  inHours = 24 - diff.inHours.abs();
+                }
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => EmotionDet(
-                        listDet: listBad,
-                        color: const Color(0xffEA5757),
-                        title: 'Bad Mood'),
+                      hour: isResult ? inHours : null,
+                      listDet: fitHive.values
+                          .where((e) => e.type == FitnessType.bad)
+                          .toList(),
+                      color: const Color(0xffEA5757),
+                      title: 'Bad Mood',
+                    ),
                   ),
                 );
               },

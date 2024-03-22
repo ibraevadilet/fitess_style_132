@@ -3,12 +3,14 @@ class EcoCont {
   final String description;
   final double time;
   final int calories;
+  final DateTime? dateSaved;
 
   EcoCont({
     required this.title,
     required this.description,
     required this.time,
     required this.calories,
+    this.dateSaved,
   });
 }
 

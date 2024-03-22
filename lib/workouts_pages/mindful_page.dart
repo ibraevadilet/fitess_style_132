@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:fitess_style_132/hive_service/great_today_hive_model/great_today_hive_model.dart';
 import 'package:fitess_style_132/main.dart';
 import 'package:fitess_style_132/pagesss/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class MindfulPage extends StatefulWidget {
@@ -71,6 +73,22 @@ class _MindfulPageState extends State<MindfulPage> {
     );
 
     await Future.delayed(const Duration(seconds: 3));
+    final greates = grHive.values
+        .where(
+          (e) => e.dateTime == DateFormat('dd.MM.yyyy').format(DateTime.now()),
+        )
+        .toList();
+    if (greates.isEmpty) {
+      grHive.add(
+        GreatTodayHiveModel(
+          mindful: 'Done',
+          dateTime: DateFormat('dd.MM.yyyy').format(DateTime.now()),
+        ),
+      );
+    } else {
+      greates.first.mindful = 'Done';
+      await greates.first.save();
+    }
     Navigator.pop(context);
     Navigator.pushAndRemoveUntil(
       context,

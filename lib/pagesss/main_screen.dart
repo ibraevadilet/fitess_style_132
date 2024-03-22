@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:fitess_style_132/main.dart';
+import 'package:fitess_style_132/pagesss/buy_screen.dart';
 import 'package:fitess_style_132/pagesss/setting_screen.dart';
 import 'package:fitess_style_132/workouts_pages/eco_page.dart';
 import 'package:fitess_style_132/workouts_pages/emotion_page.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,11 +23,77 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   String? savedImage;
+  bool isPrem = false;
 
   @override
   void initState() {
+    isPrem = prefs.getBool('ispremmmsd') ?? false;
     savedImage = prefs.getString('image');
+    showGreat();
     super.initState();
+  }
+
+  showGreat() async {
+    await Future.delayed(const Duration(seconds: 1));
+    final greates = grHive.values.where(
+      (e) => e.dateTime == DateFormat('dd.MM.yyyy').format(DateTime.now()),
+    );
+    if (greates.isNotEmpty) {
+      final one = greates.first;
+      if (one.eco != null && one.emotion != null && one.mindful != null) {
+        if (!one.isShow) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => StatefulBuilder(
+              builder: (context, setState2) {
+                return CupertinoAlertDialog(
+                  title: Text(
+                    'You did great today!',
+                    style: TextStyle(
+                      fontFamily: family,
+                      fontSize: 17.h,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  content: Column(
+                    children: [
+                      SizedBox(height: 14.h),
+                      Text(
+                        'Come back tomorrow for new positive emotions and a healthy body!',
+                        style: TextStyle(
+                          fontFamily: family,
+                          fontSize: 13.h,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    CupertinoDialogAction(
+                      isDefaultAction: true,
+                      onPressed: () async {
+                        one.isShow = true;
+                        await one.save();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          fontFamily: family,
+                          fontSize: 17.h,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff0A84FF),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -136,17 +204,24 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         InkWell(
                           onTap: () async {
-                            final pickedFile = await ImagePicker()
-                                .pickImage(source: ImageSource.gallery);
-                            if (pickedFile != null) {
-                              final bytes1 = await pickedFile.readAsBytes();
-                              // final image = File(pickedFile.path);
-                              // final bytes = image.readAsBytesSync();
-                              final photo = String.fromCharCodes(bytes1);
-                              await prefs.setString('image', photo);
+                            if (!isPrem) {
+                              premiumDialo(
+                                context,
+                                'If you want to use photo background function, get premium',
+                              );
+                            } else {
+                              final pickedFile = await ImagePicker()
+                                  .pickImage(source: ImageSource.gallery);
+                              if (pickedFile != null) {
+                                final bytes1 = await pickedFile.readAsBytes();
+                                // final image = File(pickedFile.path);
+                                // final bytes = image.readAsBytesSync();
+                                final photo = String.fromCharCodes(bytes1);
+                                await prefs.setString('image', photo);
 
-                              savedImage = prefs.getString('image');
-                              setState(() {});
+                                savedImage = prefs.getString('image');
+                                setState(() {});
+                              }
                             }
                           },
                           child: Image.asset(
@@ -208,12 +283,20 @@ class _MainScreenState extends State<MainScreen> {
                               SizedBox(height: 10.w),
                               InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    CupertinoPageRoute(
-                                      builder: (context) => const MindfulPage(),
-                                    ),
-                                  );
+                                  if (!isPrem) {
+                                    premiumDialo(
+                                      context,
+                                      'If you want to use Mindful Breathing Integration function, get premium',
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                        builder: (context) =>
+                                            const MindfulPage(),
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: Image.asset(
                                   'assets/images/Mindful_icon.png',
@@ -233,4 +316,73 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+}
+
+Future<void> premiumDialo(BuildContext context, String title) async {
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: Text(
+        'Get Premium',
+        style: TextStyle(
+          fontFamily: family,
+          fontSize: 17.h,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      content: Column(
+        children: [
+          SizedBox(height: 14.h),
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: family,
+              fontSize: 13.h,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 24.h),
+        ],
+      ),
+      actions: [
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Close',
+            style: TextStyle(
+              fontFamily: family,
+              fontSize: 17.h,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xff0A84FF),
+            ),
+          ),
+        ),
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.of(context).pop();
+
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => const BuyScreen(isClose: true),
+              ),
+            );
+          },
+          child: Text(
+            'Get Premium',
+            style: TextStyle(
+              fontFamily: family,
+              fontSize: 17.h,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff0A84FF),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

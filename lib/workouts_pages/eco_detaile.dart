@@ -140,14 +140,14 @@ class _EcoDetaileState extends State<EcoDetaile> {
                           children: [
                             const Icon(
                               Icons.edit,
-                              color: Color(0xffE80000),
+                              color: Color(0xff2E70F0),
                             ),
                             Text(
                               'Change Task',
                               style: TextStyle(
                                 fontSize: 16.h,
                                 fontWeight: FontWeight.w500,
-                                color: const Color(0xffE80000),
+                                color: const Color(0xff2E70F0),
                               ),
                             ),
                           ],
@@ -220,14 +220,14 @@ class _EcoDetaileState extends State<EcoDetaile> {
                           children: [
                             const Icon(
                               Icons.check_circle_outline,
-                              color: Color(0xffE80000),
+                              color: Color(0xff2E70F0),
                             ),
                             Text(
                               'Mark as Done',
                               style: TextStyle(
                                 fontSize: 16.h,
                                 fontWeight: FontWeight.w500,
-                                color: const Color(0xffE80000),
+                                color: const Color(0xff2E70F0),
                               ),
                             ),
                           ],

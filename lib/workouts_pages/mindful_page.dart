@@ -219,7 +219,7 @@ class _MindfulPageState extends State<MindfulPage> {
                             fontSize: 16.h,
                             fontWeight: FontWeight.w600,
                             fontFamily: family,
-                            color: const Color(0xffE80000),
+                            color: const Color(0xff2E70F0),
                           ),
                         ),
                         SizedBox(width: 10.w),
@@ -228,6 +228,7 @@ class _MindfulPageState extends State<MindfulPage> {
                               ? 'assets/images/stop_icon.png'
                               : 'assets/images/play_icon.png',
                           height: 24.h,
+                          color: const Color(0xff2E70F0),
                         )
                       ],
                     ),
@@ -267,7 +268,7 @@ class MinWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: isSeleted ? const Color(0xffE80000) : Colors.black,
+                  color: isSeleted ? const Color(0xff2E70F0) : Colors.black,
                   border: isSeleted
                       ? null
                       : Border.all(
@@ -281,7 +282,7 @@ class MinWidget extends StatelessWidget {
                     fontSize: 16.h,
                     fontWeight: FontWeight.w600,
                     fontFamily: family,
-                    color: isSeleted ? Colors.black : const Color(0xffE80000),
+                    color: isSeleted ? Colors.black : const Color(0xff2E70F0),
                   ),
                 ),
               ),
@@ -294,7 +295,7 @@ class MinWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                color: isSeleted ? const Color(0xffE80000) : Colors.black,
+                color: isSeleted ? const Color(0xff2E70F0) : Colors.black,
                 border: isSeleted
                     ? null
                     : Border.all(
@@ -308,7 +309,7 @@ class MinWidget extends StatelessWidget {
                   fontSize: 16.h,
                   fontWeight: FontWeight.w600,
                   fontFamily: family,
-                  color: isSeleted ? Colors.black : const Color(0xffE80000),
+                  color: isSeleted ? Colors.black : const Color(0xff2E70F0),
                 ),
               ),
             ),
@@ -429,7 +430,7 @@ class CenterWidget extends StatelessWidget {
             ),
           ],
         ),
-        progressColor: const Color(0xffE80000),
+        progressColor: const Color(0xff2E70F0),
       ),
     );
   }

@@ -111,7 +111,11 @@ class SetWidget extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Image.asset(icon, height: 23.h),
+              Image.asset(
+                icon,
+                height: 23.h,
+                color: const Color(0xff2E70F0),
+              ),
               SizedBox(width: 11.w),
               Text(
                 title,
@@ -119,13 +123,13 @@ class SetWidget extends StatelessWidget {
                   fontSize: 16.h,
                   fontWeight: FontWeight.w600,
                   fontFamily: family,
-                  color: const Color(0xffE80000),
+                  color: const Color(0xff2E70F0),
                 ),
               ),
               const Spacer(),
               const Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: Color(0xffE80000),
+                color: Color(0xff2E70F0),
               ),
             ],
           ),

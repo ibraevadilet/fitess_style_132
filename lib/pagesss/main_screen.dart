@@ -161,7 +161,7 @@ class _MainScreenState extends State<MainScreen> {
                       calendarStyle: const CalendarStyle(
                         cellAlignment: Alignment.center,
                         todayDecoration: BoxDecoration(
-                          color: Color(0xffFF0000),
+                          color: Color(0xff2E70F0),
                           shape: BoxShape.circle,
                         ),
                         defaultDecoration: BoxDecoration(

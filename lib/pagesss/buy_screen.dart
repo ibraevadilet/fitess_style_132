@@ -50,6 +50,14 @@ class BuyScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             const SizedBox(width: double.infinity),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 56),
+                child: Image.asset(
+                  'assets/images/prem_image.png',
+                ),
+              ),
+            ),
             Text(
               'Get Premium',
               style: TextStyle(

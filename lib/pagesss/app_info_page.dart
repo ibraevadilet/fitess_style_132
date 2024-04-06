@@ -126,13 +126,13 @@ class _AppInfoPageState extends State<AppInfoPage> {
                         fontSize: 18.h,
                         fontWeight: FontWeight.w600,
                         fontFamily: family,
-                        color: const Color(0xffE80000),
+                        color: const Color(0xff2E70F0),
                       ),
                     ),
                     SizedBox(width: 5.w),
                     const Icon(
                       Icons.arrow_forward_ios_rounded,
-                      color: Color(0xffE80000),
+                      color: Color(0xff2E70F0),
                     )
                   ],
                 ),

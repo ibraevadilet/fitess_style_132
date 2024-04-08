@@ -1,19 +1,29 @@
+import 'package:apphud/apphud.dart';
 import 'package:fitess_style_132/main.dart';
 import 'package:fitess_style_132/pagesss/main_screen.dart';
+import 'package:fitess_style_132/services/web_view_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BuyScreen extends StatelessWidget {
+class BuyScreen extends StatefulWidget {
   const BuyScreen({super.key, this.isClose = false});
   final bool isClose;
+
+  @override
+  State<BuyScreen> createState() => _BuyScreenState();
+}
+
+class _BuyScreenState extends State<BuyScreen> {
+  bool sdfaafadfa = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
-            if (isClose) {
+            if (widget.isClose) {
               Navigator.pop(context);
             } else {
               Navigator.pushAndRemoveUntil(
@@ -32,7 +42,53 @@ class BuyScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              final hasPremiumAccess = await Apphud.hasPremiumAccess();
+              final hasActiveSubscription =
+                  await Apphud.hasActiveSubscription();
+              if (hasPremiumAccess || hasActiveSubscription) {
+                await prefs.setBool('ispremmmsd', true);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text('Success!'),
+                    content: const Text('Your purchase has been restored!'),
+                    actions: [
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const MainScreen(),
+                            ),
+                            (route) => false,
+                          );
+                        },
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CupertinoAlertDialog(
+                    title: const Text('Restore purchase'),
+                    content: const Text(
+                        'Your purchase is not found. Write to support: https://forms.gle/9L6kSU6cEqbfK4CT7'),
+                    actions: [
+                      CupertinoDialogAction(
+                        isDefaultAction: true,
+                        onPressed: () => {Navigator.of(context).pop()},
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            },
             child: Text(
               'Restore purchases',
               style: TextStyle(
@@ -111,14 +167,89 @@ class BuyScreen extends StatelessWidget {
             SizedBox(height: 33.h),
             InkWell(
               onTap: () async {
-                await prefs.setBool('ispremmmsd', true);
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const MainScreen(),
-                  ),
-                  (route) => false,
+                setState(() {
+                  sdfaafadfa = true;
+                });
+
+                final apphudPaywalls = await Apphud.paywalls();
+                print(apphudPaywalls);
+
+                await Apphud.purchase(
+                  product: apphudPaywalls?.paywalls.first.products?.first,
+                ).whenComplete(
+                  () async {
+                    if (await Apphud.hasPremiumAccess() ||
+                        await Apphud.hasActiveSubscription()) {
+                      final hasPremiumAccess = await Apphud.hasPremiumAccess();
+                      final hasActiveSubscription =
+                          await Apphud.hasActiveSubscription();
+                      if (hasPremiumAccess || hasActiveSubscription) {
+                        await prefs.setBool('ispremmmsd', true);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              CupertinoAlertDialog(
+                            title: const Text('Success!'),
+                            content:
+                                const Text('Your purchase has been restored!'),
+                            actions: [
+                              CupertinoDialogAction(
+                                isDefaultAction: true,
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const MainScreen(),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
+                                child: const Text('Ok'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              CupertinoAlertDialog(
+                            title: const Text('Restore purchase'),
+                            content: const Text(
+                                'Your purchase is not found. Write to support: https://forms.gle/9L6kSU6cEqbfK4CT7'),
+                            actions: [
+                              CupertinoDialogAction(
+                                isDefaultAction: true,
+                                onPressed: () => {Navigator.of(context).pop()},
+                                child: const Text('Ok'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MainScreen(),
+                        ),
+                        (route) => false,
+                      );
+                    }
+                  },
                 );
+
+                setState(() {
+                  sdfaafadfa = false;
+                });
+                // await prefs.setBool('ispremmmsd', true);
+                // Navigator.pushAndRemoveUntil(
+                //   context,
+                //   CupertinoPageRoute(
+                //     builder: (context) => const MainScreen(),
+                //   ),
+                //   (route) => false,
+                // );
               },
               child: Container(
                 padding:
@@ -130,36 +261,66 @@ class BuyScreen extends StatelessWidget {
                     width: 2,
                   ),
                 ),
-                child: Text(
-                  'Buy Premium \$0.99',
-                  style: TextStyle(
-                    fontSize: 16.h,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: family,
-                    color: const Color(0xffE80000),
-                  ),
-                ),
+                child: sdfaafadfa
+                    ? const CircularProgressIndicator.adaptive()
+                    : Text(
+                        'Buy Premium \$0.99',
+                        style: TextStyle(
+                          fontSize: 16.h,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: family,
+                          color: const Color(0xffE80000),
+                        ),
+                      ),
               ),
             ),
             SizedBox(height: 23.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Privacy Policy',
-                  style: TextStyle(
-                    fontSize: 16.h,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: family,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WebStyle(
+                          url:
+                              'https://docs.google.com/document/d/13xjm0lO7dnYWHo2lyFSJA6MP6tKQLKVQO75-F9putk8/edit?usp=sharing',
+                          title: 'Privacy Policy',
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Privacy Policy',
+                    style: TextStyle(
+                      fontSize: 16.h,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: family,
+                    ),
                   ),
                 ),
                 SizedBox(width: 22.w),
-                Text(
-                  'Terms of Use',
-                  style: TextStyle(
-                    fontSize: 16.h,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: family,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WebStyle(
+                          url:
+                              'https://docs.google.com/document/d/1IrSwgj1U_g5xH0hgZiTh5LyXmTTbf701SjdkoM3Vu8M/edit?usp=sharing',
+                          title: 'Terms of use',
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Terms of Use',
+                    style: TextStyle(
+                      fontSize: 16.h,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: family,
+                    ),
                   ),
                 ),
               ],

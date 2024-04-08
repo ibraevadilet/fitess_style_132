@@ -1,3 +1,4 @@
+import 'package:apphud/apphud.dart';
 import 'package:fitess_style_132/hive_service/fitness_hive_model/fitness_hive_model.dart';
 import 'package:fitess_style_132/hive_service/great_today_hive_model/great_today_hive_model.dart';
 import 'package:fitess_style_132/hive_service/type_fitness.dart';
@@ -18,6 +19,7 @@ late final Box<GreatTodayHiveModel> grHive;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Apphud.start(apiKey: 'app_AB3bxMy2cGTSDayCTv3cLpnAo5knHV');
   await Hive.initFlutter();
   Hive.registerAdapter(FitnessHiveModelAdapter());
   Hive.registerAdapter(GreatTodayHiveModelAdapter());

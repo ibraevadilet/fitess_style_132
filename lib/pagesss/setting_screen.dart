@@ -1,8 +1,10 @@
 import 'package:fitess_style_132/main.dart';
 import 'package:fitess_style_132/pagesss/buy_screen.dart';
+import 'package:fitess_style_132/services/web_view_style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -56,22 +58,58 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               ),
             SetWidget(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebStyle(
+                      url:
+                          'https://docs.google.com/document/d/13xjm0lO7dnYWHo2lyFSJA6MP6tKQLKVQO75-F9putk8/edit?usp=sharing',
+                      title: 'Privacy Policy',
+                    ),
+                  ),
+                );
+              },
               icon: 'assets/images/set1.png',
               title: 'Privacy Policy',
             ),
             SetWidget(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebStyle(
+                      url:
+                          'https://docs.google.com/document/d/1IrSwgj1U_g5xH0hgZiTh5LyXmTTbf701SjdkoM3Vu8M/edit?usp=sharing',
+                      title: 'Terms of use',
+                    ),
+                  ),
+                );
+              },
               icon: 'assets/images/set2.png',
               title: 'Terms of Use',
             ),
             SetWidget(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WebStyle(
+                      url: 'https://forms.gle/9L6kSU6cEqbfK4CT7',
+                      title: 'Support',
+                    ),
+                  ),
+                );
+              },
               icon: 'assets/images/set3.png',
               title: 'Support',
             ),
             SetWidget(
-              onTap: () {},
+              onTap: () {
+                Share.share(
+                  'https://apps.apple.com/us/app/dailyfit-positive-styles/id6482979821',
+                );
+              },
               icon: 'assets/images/set4.png',
               title: 'Share App',
             ),
